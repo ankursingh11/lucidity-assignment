@@ -6,7 +6,7 @@ const useInventoryData = () => {
   const fetchInventoryData = async (retries = 3, delay = 1000) => {
     try {
       const response = await fetch(INVENTORY_API);
-      if (response.status === 421) {
+      if (response.status === 429) {
         if (retries > 0) {
           console.warn(`Too many requests. Retrying in ${delay}ms...`);
           await new Promise((res) => setTimeout(res, delay));

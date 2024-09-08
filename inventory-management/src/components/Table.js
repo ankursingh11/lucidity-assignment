@@ -70,14 +70,14 @@ const InventoryTable = ({
                   <td>{data?.value}</td>
                   <td>
                     <button
-                      disabled={isAdmin === false}
+                      disabled={isAdmin === false || data?.disable === true}
                       onClick = {() => handleEditModal(index)}
                     >
                       <FontAwesomeIcon
                         icon={faPen}
                         className={
                           "mx-2" +
-                          (isAdmin ? " text-green-700 cursor-pointer" : "")
+                          (isAdmin && !data.disable? " text-green-700 cursor-pointer" : "")
                         }
                       />
                     </button>
