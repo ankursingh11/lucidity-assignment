@@ -5,7 +5,7 @@ export const DUMMY_DATA = [
     value: "$150",
     quantity: 5,
     price: "$30",
-    disable: true,
+    disable: false,
   },
   {
     name: "Edifier M43560",
