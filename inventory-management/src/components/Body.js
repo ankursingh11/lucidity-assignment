@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import useInventoryData from "../utils/useInventoryData";
 import { DUMMY_DATA } from "../constants/dummyData";
 import KPI from "./KPISection";
+import InventoryTable from "./Table";
 
 function findCategory() {
   const st = new Set();
@@ -35,6 +36,7 @@ const Body = () => {
         outOfStock={outOfStock}
         category={category}
       />
+      <InventoryTable inventoryData={inventoryData} />
     </div>
   );
 };
