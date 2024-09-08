@@ -54,7 +54,7 @@ const EditModal = ({
           <div className="text-3xl">Edit Product</div>
           <FontAwesomeIcon
             icon={faX}
-            className="cursor-pointer text-[#E0F66F] bg-[#3F413D] p-2 rounded-lg"
+            className="cursor-pointer text-neon bg-lightArmyGreen p-2 rounded-lg"
             onClick={handleCloseModal}
           />
         </div>
@@ -107,10 +107,10 @@ const EditModal = ({
             </div>
           </div>
           <div className="flex justify-end mt-6 gap-3">
-            <button className="text-[#E0F66F]" onClick={handleCloseModal}>
+            <button className="text-neon" onClick={handleCloseModal}>
               Cancel
             </button>
-            <button className="bg-[#3F413D] px-2 py-1 rounded-lg">Save</button>
+            <button className="bg-lightArmyGreen px-2 py-1 rounded-lg">Save</button>
           </div>
         </form>
       </div>

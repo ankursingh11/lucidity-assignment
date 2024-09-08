@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 const KPICard = ({ icon, title, value }) => {
   return (
-    <div className="bg-[#243324] flex p-5 rounded-lg w-[20rem]">
+    <div className="bg-armyGreen flex p-5 rounded-lg w-[20rem]">
       <div>
         <FontAwesomeIcon icon={icon} className="text-xl" />
       </div>

@@ -52,7 +52,7 @@ const InventoryTable = ({
             <tr>
               {TABLE_HEADINGS.map((heading, index) => (
                 <th>
-                  <span className="bg-black px-2 py-1 text-[#E0F66F] rounded-lg">
+                  <span className="bg-black px-2 py-1 text-neon rounded-lg">
                     {heading}
                   </span>
                 </th>

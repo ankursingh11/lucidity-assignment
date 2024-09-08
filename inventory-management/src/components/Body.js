@@ -13,8 +13,8 @@ import EditModal from "./EditModal";
 import { useSelector } from "react-redux";
 
 const Body = () => {
-//   const data = useInventoryData();
-  const [inventoryData, setInventoryData] = useState(DUMMY_DATA);
+  const data = useInventoryData();
+  const [inventoryData, setInventoryData] = useState(() => data.length ? data : DUMMY_DATA);
   const [totalProducts, setTotalProducts] = useState(() =>
     findTotalProduts(inventoryData)
   );
@@ -26,6 +26,7 @@ const Body = () => {
   );
   const [category, setCategory] = useState(() => findCategory(inventoryData));
   const showEditModal = useSelector((store) => store.modal.showEditProductModal);
+  
 
   return (
     <div>
