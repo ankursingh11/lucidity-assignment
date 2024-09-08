@@ -5,6 +5,7 @@ export const DUMMY_DATA = [
     value: "$150",
     quantity: 5,
     price: "$30",
+    disable: true,
   },
   {
     name: "Edifier M43560",
@@ -12,6 +13,7 @@ export const DUMMY_DATA = [
     value: "0",
     quantity: 0,
     price: "$0",
+    disable: false,
   },
   {
     name: "Sony 4k ultra 55 inch TV",
@@ -19,6 +21,7 @@ export const DUMMY_DATA = [
     value: "$1190",
     quantity: 17,
     price: "$70",
+    disable: false,
   },
   {
     name: "Samsumg 55 inch TV",
@@ -26,6 +29,7 @@ export const DUMMY_DATA = [
     value: "$600",
     quantity: 50,
     price: "$12",
+    disable: false,
   },
   {
     name: "samsumg S34 Ultra",
@@ -33,5 +37,6 @@ export const DUMMY_DATA = [
     value: "$0",
     quantity: 0,
     price: "$0",
+    disable: false,
   },
 ];

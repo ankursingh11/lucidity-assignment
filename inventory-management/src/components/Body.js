@@ -36,7 +36,7 @@ const Body = () => {
         outOfStock={outOfStock}
         category={category}
       />
-      <InventoryTable inventoryData={inventoryData} />
+      <InventoryTable inventoryData={inventoryData} setInventoryData = {setInventoryData}/>
     </div>
   );
 };
