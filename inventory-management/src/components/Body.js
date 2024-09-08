@@ -2,6 +2,14 @@ import React, {useState} from "react";
 import useInventoryData from "../utils/useInventoryData";
 import { DUMMY_DATA } from "../constants/dummyData";
 
+function findCategory(){
+    const st = new Set();
+    DUMMY_DATA.forEach((item) => {
+        st.add(item.category);
+    });
+    return st.size;
+}
+
 const Body = () => {
   // const data = useInventoryData();
   const [inventoryData, setInventoryData] = useState(DUMMY_DATA);
