@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import { TABLE_HEADINGS } from "../constants/constants";
 import { faPen, faEye, faTrash, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
