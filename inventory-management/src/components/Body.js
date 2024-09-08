@@ -3,29 +3,16 @@ import useInventoryData from "../utils/useInventoryData";
 import { DUMMY_DATA } from "../constants/dummyData";
 import KPI from "./KPISection";
 import InventoryTable from "./Table";
+import { findTotalProduts, findTotalValue, findOutOfStock, findCategory } from "../utils/utilFunctions";
 
-function findCategory() {
-  const st = new Set();
-  DUMMY_DATA.forEach((item) => {
-    st.add(item.category);
-  });
-  return st.size;
-}
 
 const Body = () => {
   // const data = useInventoryData();
   const [inventoryData, setInventoryData] = useState(DUMMY_DATA);
-  const [totalProducts, setTotalProducts] = useState(DUMMY_DATA.length);
-  const [totalValue, setTotalValue] = useState(
-    DUMMY_DATA.reduce((acc, item) => {
-      const itemValue = parseFloat(item.value.replace("$", ""));
-      return acc + itemValue;
-    }, 0)
-  );
-  const [outOfStock, setOutOfStock] = useState(
-    DUMMY_DATA.filter((item) => item.quantity === 0).length
-  );
-  const [category, setCategory] = useState(() => findCategory());
+  const [totalProducts, setTotalProducts] = useState(() => findTotalProduts(inventoryData));
+  const [totalValue, setTotalValue] = useState(() => findTotalValue(inventoryData));
+  const [outOfStock, setOutOfStock] = useState(() => findOutOfStock(inventoryData));
+  const [category, setCategory] = useState(() => findCategory(inventoryData));
 
   return (
     <div className="m-6">
@@ -36,7 +23,14 @@ const Body = () => {
         outOfStock={outOfStock}
         category={category}
       />
-      <InventoryTable inventoryData={inventoryData} setInventoryData = {setInventoryData}/>
+      <InventoryTable
+        inventoryData={inventoryData}
+        setInventoryData={setInventoryData}
+        setTotalProducts={setTotalProducts}
+        setTotalValue = {setTotalValue}
+        setOutOfStock = {setOutOfStock}
+        setCategory = {setCategory}
+      />
     </div>
   );
 };

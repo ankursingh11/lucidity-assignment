@@ -7,14 +7,26 @@ import {
   faEyeSlash,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { UseSelector, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
+import { findTotalProduts, findTotalValue, findOutOfStock, findCategory } from "../utils/utilFunctions";
 
-const InventoryTable = ({ inventoryData, setInventoryData }) => {
+const InventoryTable = ({
+  inventoryData,
+  setInventoryData,
+  setTotalProducts,
+  setTotalValue,
+  setOutOfStock,
+  setCategory
+}) => {
   const isAdmin = useSelector((store) => store.user.isAdmin);
 
-  function handleDisable(index){
-    inventoryData[index].disable = !inventoryData[index].disable
-    setInventoryData([...inventoryData])
+  function handleDisable(index) {
+    inventoryData[index].disable = !inventoryData[index].disable;
+    setInventoryData([...inventoryData]);
+    setTotalProducts(() => findTotalProduts(inventoryData));
+    setTotalValue(() => findTotalValue(inventoryData));
+    setOutOfStock(() => findOutOfStock(inventoryData));
+    setCategory(() => findCategory(inventoryData));
   }
 
   return (
@@ -35,7 +47,7 @@ const InventoryTable = ({ inventoryData, setInventoryData }) => {
           <tbody>
             {inventoryData.map((data, index) => {
               return (
-                <tr className = {data?.disable ? "opacity-50" : ""}>
+                <tr className={data?.disable ? "opacity-50" : ""}>
                   <th>{data?.name}</th>
                   <td>{data?.category}</td>
                   <td>{data?.price}</td>
@@ -47,11 +59,16 @@ const InventoryTable = ({ inventoryData, setInventoryData }) => {
                         icon={faPen}
                         className={
                           "mx-2" +
-                          (isAdmin && !data?.disable ? " text-green-700 cursor-pointer" : "")
+                          (isAdmin && !data?.disable
+                            ? " text-green-700 cursor-pointer"
+                            : "")
                         }
                       />
                     </button>
-                    <button disabled={isAdmin === false} onClick = {() => handleDisable(index)}>
+                    <button
+                      disabled={isAdmin === false}
+                      onClick={() => handleDisable(index)}
+                    >
                       <FontAwesomeIcon
                         icon={data?.disable ? faEyeSlash : faEye}
                         className={
