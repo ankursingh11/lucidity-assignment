@@ -29,6 +29,15 @@ const InventoryTable = ({
     setCategory(() => findCategory(inventoryData));
   }
 
+  function handleDelete(index){
+    inventoryData.splice(index, 1);
+    setInventoryData([...inventoryData]);
+    setTotalProducts(() => findTotalProduts(inventoryData));
+    setTotalValue(() => findTotalValue(inventoryData));
+    setOutOfStock(() => findOutOfStock(inventoryData));
+    setCategory(() => findCategory(inventoryData));
+  }
+
   return (
     <div className="my-5">
       <div class="flex w-full overflow-x-auto">
@@ -77,7 +86,7 @@ const InventoryTable = ({
                         }
                       />
                     </button>
-                    <button disabled={isAdmin === false}>
+                    <button disabled={isAdmin === false} onClick = {() => handleDelete(index)}>
                       <FontAwesomeIcon
                         icon={faTrash}
                         className={
