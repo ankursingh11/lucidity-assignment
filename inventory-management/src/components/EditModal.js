@@ -7,11 +7,10 @@ import {
   findOutOfStock,
   findCategory,
 } from "../utils/utilFunctions";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { closeEditModal } from "../utils/modalSlice";
 
 const EditModal = ({
-  x,
   inventoryData,
   setInventoryData,
   setTotalProducts,
@@ -19,18 +18,23 @@ const EditModal = ({
   setOutOfStock,
   setCategory,
 }) => {
-  const [category, setEditCategory] = useState(inventoryData[x].category);
-  const [quantity, setEditQuantity] = useState(inventoryData[x].quantity);
-  const [value, setEditValue] = useState(inventoryData[x].value);
-  const [price, setEditPrice] = useState(inventoryData[x].price);
+  const dataIndex = useSelector((store) => store.modal.dataIndex);
+  const [category, setEditCategory] = useState(
+    inventoryData[dataIndex].category
+  );
+  const [quantity, setEditQuantity] = useState(
+    inventoryData[dataIndex].quantity
+  );
+  const [value, setEditValue] = useState(inventoryData[dataIndex].value);
+  const [price, setEditPrice] = useState(inventoryData[dataIndex].price);
   const dispatch = useDispatch();
 
   function handleSubmit(e) {
     e.preventDefault();
-    inventoryData[x].category = category;
-    inventoryData[x].quantity = quantity;
-    inventoryData[x].value = value;
-    inventoryData[x].price = price;
+    inventoryData[dataIndex].category = category;
+    inventoryData[dataIndex].quantity = quantity;
+    inventoryData[dataIndex].value = value;
+    inventoryData[dataIndex].price = price;
     setInventoryData([...inventoryData]);
     dispatch(closeEditModal());
     setTotalProducts(() => findTotalProduts(inventoryData));
@@ -39,7 +43,7 @@ const EditModal = ({
     setCategory(() => findCategory(inventoryData));
   }
 
-  function handleCloseModal(){
+  function handleCloseModal() {
     dispatch(closeEditModal());
   }
 
@@ -54,7 +58,7 @@ const EditModal = ({
             onClick={handleCloseModal}
           />
         </div>
-        <div className="mt-2">{inventoryData[x].name}</div>
+        <div className="mt-2">{inventoryData[dataIndex].name}</div>
         <form onSubmit={(e) => handleSubmit(e)}>
           <div className="grid grid-cols-2 gap-3 mt-4">
             <div>
@@ -103,10 +107,7 @@ const EditModal = ({
             </div>
           </div>
           <div className="flex justify-end mt-6 gap-3">
-            <button
-              className="text-[#E0F66F]"
-              onClick={handleCloseModal}
-            >
+            <button className="text-[#E0F66F]" onClick={handleCloseModal}>
               Cancel
             </button>
             <button className="bg-[#3F413D] px-2 py-1 rounded-lg">Save</button>

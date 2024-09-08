@@ -9,8 +9,7 @@ import {
   findOutOfStock,
   findCategory,
 } from "../utils/utilFunctions";
-import { UseDispatch } from "react-redux";
-import {toggleEditModal, closeEditModal} from "../utils/modalSlice";
+import {toggleEditModal, setDataIndex} from "../utils/modalSlice";
 
 const InventoryTable = ({
   inventoryData,
@@ -19,7 +18,6 @@ const InventoryTable = ({
   setTotalValue,
   setOutOfStock,
   setCategory,
-  setX
 }) => {
   const isAdmin = useSelector((store) => store.user.isAdmin);
   const dispatch = useDispatch();
@@ -42,7 +40,7 @@ const InventoryTable = ({
   }
 
   function handleEditModal(index) {
-    setX(index);
+    dispatch(setDataIndex(index));
     dispatch(toggleEditModal());
   }
 

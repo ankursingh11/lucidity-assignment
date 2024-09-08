@@ -26,13 +26,11 @@ const Body = () => {
   );
   const [category, setCategory] = useState(() => findCategory(inventoryData));
   const showEditModal = useSelector((store) => store.modal.showEditProductModal);
-  const [x, setX] = useState(0);
 
   return (
     <div>
       {showEditModal && (
         <EditModal
-          x={x}
           inventoryData={inventoryData}
           setInventoryData={setInventoryData}
           setTotalProducts={setTotalProducts}
@@ -57,7 +55,6 @@ const Body = () => {
           setTotalValue={setTotalValue}
           setOutOfStock={setOutOfStock}
           setCategory={setCategory}
-          setX={setX}
         />
       </div>
     </div>
