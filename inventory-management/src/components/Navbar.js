@@ -23,7 +23,7 @@ const Navbar = () => {
           <span>admin</span>
           <input
             type="checkbox"
-            className="switch mx-3"
+            className="switch switch-success mx-3"
             onClick={handleToggle}
           />
           <span>user</span>
