@@ -2,13 +2,15 @@ import React, { useState } from "react";
 import { TABLE_HEADINGS } from "../constants/constants";
 import { faPen, faEye, faTrash, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   findTotalProduts,
   findTotalValue,
   findOutOfStock,
   findCategory,
 } from "../utils/utilFunctions";
+import { UseDispatch } from "react-redux";
+import {toggleEditModal, closeEditModal} from "../utils/modalSlice";
 
 const InventoryTable = ({
   inventoryData,
@@ -17,11 +19,10 @@ const InventoryTable = ({
   setTotalValue,
   setOutOfStock,
   setCategory,
-  setShowModal,
-  showModal,
   setX
 }) => {
   const isAdmin = useSelector((store) => store.user.isAdmin);
+  const dispatch = useDispatch();
   function handleDisable(index) {
     inventoryData[index].disable = !inventoryData[index].disable;
     setInventoryData([...inventoryData]);
@@ -42,7 +43,7 @@ const InventoryTable = ({
 
   function handleEditModal(index) {
     setX(index);
-    setShowModal(!showModal);
+    dispatch(toggleEditModal());
   }
 
   return (

@@ -2,26 +2,28 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faX } from "@fortawesome/free-solid-svg-icons";
 import {
-    findTotalProduts,
-    findTotalValue,
-    findOutOfStock,
-    findCategory,
-  } from "../utils/utilFunctions";
+  findTotalProduts,
+  findTotalValue,
+  findOutOfStock,
+  findCategory,
+} from "../utils/utilFunctions";
+import { useDispatch } from "react-redux";
+import { closeEditModal } from "../utils/modalSlice";
 
 const EditModal = ({
   x,
-  setShowModal,
   inventoryData,
   setInventoryData,
   setTotalProducts,
   setTotalValue,
   setOutOfStock,
-  setCategory
+  setCategory,
 }) => {
   const [category, setEditCategory] = useState(inventoryData[x].category);
   const [quantity, setEditQuantity] = useState(inventoryData[x].quantity);
   const [value, setEditValue] = useState(inventoryData[x].value);
   const [price, setEditPrice] = useState(inventoryData[x].price);
+  const dispatch = useDispatch();
 
   function handleSubmit(e) {
     e.preventDefault();
@@ -30,11 +32,15 @@ const EditModal = ({
     inventoryData[x].value = value;
     inventoryData[x].price = price;
     setInventoryData([...inventoryData]);
-    setShowModal(false);
+    dispatch(closeEditModal());
     setTotalProducts(() => findTotalProduts(inventoryData));
     setTotalValue(() => findTotalValue(inventoryData));
     setOutOfStock(() => findOutOfStock(inventoryData));
     setCategory(() => findCategory(inventoryData));
+  }
+
+  function handleCloseModal(){
+    dispatch(closeEditModal());
   }
 
   return (
@@ -45,7 +51,7 @@ const EditModal = ({
           <FontAwesomeIcon
             icon={faX}
             className="cursor-pointer text-[#E0F66F] bg-[#3F413D] p-2 rounded-lg"
-            onClick={() => setShowModal(false)}
+            onClick={handleCloseModal}
           />
         </div>
         <div className="mt-2">{inventoryData[x].name}</div>
@@ -99,7 +105,7 @@ const EditModal = ({
           <div className="flex justify-end mt-6 gap-3">
             <button
               className="text-[#E0F66F]"
-              onClick={() => setShowModal(false)}
+              onClick={handleCloseModal}
             >
               Cancel
             </button>

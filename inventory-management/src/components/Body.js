@@ -10,9 +10,10 @@ import {
   findCategory,
 } from "../utils/utilFunctions";
 import EditModal from "./EditModal";
+import { useSelector } from "react-redux";
 
 const Body = () => {
-  // const data = useInventoryData();
+//   const data = useInventoryData();
   const [inventoryData, setInventoryData] = useState(DUMMY_DATA);
   const [totalProducts, setTotalProducts] = useState(() =>
     findTotalProduts(inventoryData)
@@ -24,15 +25,14 @@ const Body = () => {
     findOutOfStock(inventoryData)
   );
   const [category, setCategory] = useState(() => findCategory(inventoryData));
-  const [showModal, setShowModal] = useState(false);
+  const showEditModal = useSelector((store) => store.modal.showEditProductModal);
   const [x, setX] = useState(0);
 
   return (
     <div>
-      {showModal && (
+      {showEditModal && (
         <EditModal
           x={x}
-          setShowModal={setShowModal}
           inventoryData={inventoryData}
           setInventoryData={setInventoryData}
           setTotalProducts={setTotalProducts}
@@ -42,7 +42,7 @@ const Body = () => {
         />
       )}
 
-      <div className={"m-6" + (showModal ? " opacity-50" : "")}>
+      <div className={"m-6" + (showEditModal ? " opacity-50" : "")}>
         <div className="text-4xl my-7">Inventory stats</div>
         <KPI
           totalProducts={totalProducts}
@@ -57,8 +57,6 @@ const Body = () => {
           setTotalValue={setTotalValue}
           setOutOfStock={setOutOfStock}
           setCategory={setCategory}
-          showModal={showModal}
-          setShowModal={setShowModal}
           setX={setX}
         />
       </div>
