@@ -1,11 +1,33 @@
 import React from "react";
 import { TABLE_HEADINGS } from "../constants/constants";
-import { faPen, faEye, faTrash } from "@fortawesome/free-solid-svg-icons";
+import {
+  faPen,
+  faEye,
+  faTrash,
+  faEyeSlash,
+} from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { UseSelector, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
+import { findTotalProduts, findTotalValue, findOutOfStock, findCategory } from "../utils/utilFunctions";
 
-const InventoryTable = ({ inventoryData }) => {
+const InventoryTable = ({
+  inventoryData,
+  setInventoryData,
+  setTotalProducts,
+  setTotalValue,
+  setOutOfStock,
+  setCategory
+}) => {
   const isAdmin = useSelector((store) => store.user.isAdmin);
+
+  function handleDisable(index) {
+    inventoryData[index].disable = !inventoryData[index].disable;
+    setInventoryData([...inventoryData]);
+    setTotalProducts(() => findTotalProduts(inventoryData));
+    setTotalValue(() => findTotalValue(inventoryData));
+    setOutOfStock(() => findOutOfStock(inventoryData));
+    setCategory(() => findCategory(inventoryData));
+  }
 
   return (
     <div className="my-5">
@@ -25,7 +47,7 @@ const InventoryTable = ({ inventoryData }) => {
           <tbody>
             {inventoryData.map((data, index) => {
               return (
-                <tr>
+                <tr className={data?.disable ? "opacity-50" : ""}>
                   <th>{data?.name}</th>
                   <td>{data?.category}</td>
                   <td>{data?.price}</td>
@@ -35,19 +57,33 @@ const InventoryTable = ({ inventoryData }) => {
                     <button disabled={isAdmin === false}>
                       <FontAwesomeIcon
                         icon={faPen}
-                        className={"mx-2" + (isAdmin ? " text-green-700 cursor-pointer" : "")}
+                        className={
+                          "mx-2" +
+                          (isAdmin && !data?.disable
+                            ? " text-green-700 cursor-pointer"
+                            : "")
+                        }
                       />
                     </button>
-                    <button disabled={isAdmin === false}>
+                    <button
+                      disabled={isAdmin === false}
+                      onClick={() => handleDisable(index)}
+                    >
                       <FontAwesomeIcon
-                        icon={faEye}
-                        className={"mx-2" + (isAdmin ? " text-purple-400 cursor-pointer" : "")}
+                        icon={data?.disable ? faEyeSlash : faEye}
+                        className={
+                          "mx-2" +
+                          (isAdmin ? " text-purple-400 cursor-pointer" : "")
+                        }
                       />
                     </button>
                     <button disabled={isAdmin === false}>
                       <FontAwesomeIcon
                         icon={faTrash}
-                        className={"mx-2" + (isAdmin ? " text-red-700 cursor-pointer" : "")}
+                        className={
+                          "mx-2" +
+                          (isAdmin ? " text-red-700 cursor-pointer" : "")
+                        }
                       />
                     </button>
                   </td>
